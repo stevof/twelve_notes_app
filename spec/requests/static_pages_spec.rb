@@ -6,7 +6,12 @@ describe "Static pages" do
 
     it "should have the content 'Sample App'" do
       visit '/static_pages/home'
-      expect(page).to have_content('Sample App')
+      expect(page).to have_content('This is the home page for the Twelve Notes application.')
+    end
+
+    it "should have the title 'Home'" do
+      visit '/static_pages/home'
+      expect(page).to have_title("Twelve Notes | Home")
     end
   end
 
