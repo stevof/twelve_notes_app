@@ -1,8 +1,23 @@
+require 'constants'
+
 module NotesRandomizer
+	include TwelveNotes
 
 	def get_12_notes(type = :sharps)
-		# gets randomized set of 12 notes
+		# gets randomized set of 12 notes, where adjacent notes are more than 1/2 step apart
 		# type => :sharps | :flats
+
+		raise(ArgumentError, "Unrecognized value '#{type}' for 'type'") unless [:sharps, :flats].include?(type)
+
+		notes_master_list = Constants::Notes::ALL_NOTES[type]
+		note_vals = get_random_values(12)
+		note_letters = []
+
+		note_vals.each do |v|
+			note_letters << notes_master_list[v - 1]
+		end
+
+		note_letters
 	end
 
 	def get_random_values(how_many)
@@ -31,11 +46,6 @@ module NotesRandomizer
 			# we cannot select immediately adjacent notes
 			# remove notes 1 step above and below the previously selected note from temp_notes
 			if selected_value
-
-				# no, this logic is unnecessary
-				# val_minus_1 = (selected_value == 1 ? how_many : selected_value - 1)
-				# val_plus_1 = (selected_value == how_many ? 1 : selected_value + 1)
-
 				temp_notes.delete(selected_value - 1) unless selected_value == 1
 				temp_notes.delete(selected_value + 1) unless selected_value == how_many
 			end
@@ -76,7 +86,6 @@ module NotesRandomizer
 
 					# we can keep the selected value IF the remaining values are not all consecutive
 					break_out = !array_values_are_consecutive_integers(possible_remaining_values)
-					# break unless array_values_are_consecutive_integers(possible_remaining_values)
 
 					putsd "rejected #{selected_value}. trying again..." unless break_out
 
