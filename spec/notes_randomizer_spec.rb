@@ -140,43 +140,28 @@ describe "NotesRandomizer tests" do
 				end
 
 				it "- should return an array" do
-					# vals = get_random_values(count)
-					# putsd "returned: #{vals.inspect}"
 					@vals.should be_an(Array)
 				end
 
 				it "- should not have any nils" do
-					# vals = get_random_values(count)
-					# putsd "returned: #{vals.inspect}"
 					@vals.should_not include(nil)
 				end
 
 				it "- should only have numbers" do
-					# vals = get_random_values(count)
-					# putsd "returned: #{vals.inspect}"
-
 					@vals.each do |n|
 						n.should be_an(Integer)
 					end
 				end
 
 				it " - length should be #{count}" do
-					# vals = get_random_values(count)
-					# putsd "returned: #{vals.inspect}"
 					@vals.length.should == count
 				end
 
 				it "- should only have values between 1 and #{count}" do
-					# vals = get_random_values(count)
-					# putsd "returned: #{vals.inspect}"
-
 					@vals.sort.should == (1..count).to_a
 				end
 
 				it "- adjacent numbers should not be consecutive" do
-					
-					# vals = get_random_values(count)
-
 					for n in 1..@vals.length - 1
 						# difference between adjacent values should be > 1
 						diff = @vals[n] - @vals[n - 1]
