@@ -1,5 +1,11 @@
 TwelveNotesApp::Application.routes.draw do
-  resources :twelve_notes
+
+  root "twelve_notes#index"
+
+  get "twelve_notes", controller: 'twelve_notes', action: 'index'
+  get "twelve_notes/json"
+  get "twelve_notes/xml"
+
   get "static_pages/home"
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,5 +1,23 @@
-<h1>Get your 12 notes here!</h1>
-<p>
-	<%= render partial: "note", collection: @notes %></p>
-<p>
-	<a href="<% twelve_notes_path %>">Get some new notes</a></p>
+<div class="title">
+	<span class="image">
+		<a href='<%= image_url('music_is_love.jpg') %>'><%= image_tag('music_is_love.jpg', height: '75' ) %></a>
+	</span>
+	<span>Get your 12 notes here!</span>
+</div>
+<div class="spacer1"></div>
+<div id="notes" class="notes">
+	<% benchmark "TIMING: Render notes" do %>
+		<%= render partial: "note", collection: @notes %>
+	<% end %>
+</div>
+<div class="spacer1"></div>
+<div class="instructions">
+	Get some new notes 
+		<a href="<%= twelve_notes_path %>?type=flats">with FLATS</a> or 
+		<a href="<%= twelve_notes_path %>?type=sharps">with SHARPS</a>
+	<div>
+		Format: 
+		<%= link_to "JSON", twelve_notes_json_path(type: params[:type]) %> |
+		<%= link_to "XML", twelve_notes_xml_path(type: params[:type]) %>
+	</div>
+</div>
